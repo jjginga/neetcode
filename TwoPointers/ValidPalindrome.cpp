@@ -31,16 +31,17 @@
 class ValidPalindrome {
 public:
     bool isPalindrome(string s) {
-        s.erase(std::remove_if(s.begin(), s.end(),
-                               [](unsigned char c) { return std::isspace(c) || std::ispunct(c); }), s.end());
-        size_t size = s.length();
-        if(size<2) return true;
-        std::transform(s.begin(), s.end(), s.begin(),
-                       [](unsigned char c) -> unsigned char { return std::tolower(c); });
 
-        for(int i = 0 ; i < size/2 ; i++)
-            if(s[i]!=s[size-i-1])
-                return false;
-        return true;
+        vector<char> letters;
+
+        for(auto ch: s)
+            if(isalnum(ch))
+                letters.push_back(tolower(ch));
+
+        vector<char> reversed = letters;
+
+        reverse(reversed.begin(), reversed.end());
+
+        return letters==reversed;
     }
 };
